@@ -1,0 +1,46 @@
+@page "/add-habit"
+@namespace Add_Habit
+@inject NavigationManager _navigator
+@using Dashbord
+<PageTitle>add-habit</PageTitle>
+<div class="HabitTracker">
+    <h3>Habit Tracker</h3>
+    <div class="habit-tracker">
+        <ul>
+            @foreach (var habit in Habits)
+            {
+                <li>
+                    <input type="checkbox" id="@(habit.ToLower())">
+                    <label for="@(habit.ToLower())">@habit</label>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+<div class="AddHabit">
+    <h3>Add Habit</h3>
+    <div>
+        <input type="text" @bind="NewHabit" placeholder="Enter new habit" />
+        <button @onclick="() => AddHabit(NewHabit)">Add Habit</button>
+    </div>
+</div>
+
+
+@code {
+    private string NewHabit = string.Empty;
+    private List<string> Habits = new() { "Exercise", "Read", "Meditate" };
+
+    
+    public void NavigateToAddHabit()
+    {
+        _navigator.NavigateTo("/add-habit");
+    }
+    public void AddHabit(string newHabit)
+    {
+        if (!string.IsNullOrWhiteSpace(newHabit))
+        {
+            Habits.Add(newHabit);
+        }
+    }
+}

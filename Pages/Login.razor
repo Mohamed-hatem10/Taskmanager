@@ -1,0 +1,42 @@
+﻿@page "/login"
+@using Users
+<PageTitle>Login</PageTitle>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-form">
+            <h1>Welcome Back</h1>
+            <p>Please login to your account</p>
+            <form>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+               <div class="form-group password-group">
+                    <label for="password">Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                        <!-- Hidden Checkbox for the Toggle -->
+                        <input type="checkbox" id="toggle-password" class="toggle-password-checkbox">
+                        <label for="toggle-password" class="toggle-password-icon">
+                            <span class="eye-icon"></span>
+                        </label>
+                    </div>
+                </div>
+               <a href="Dashbord"> <button type="submit" class="btn"> login </button></a>
+            </form>
+            <div class="options2">
+                <a href="Forgot_Password">Forgot Password?</a>
+                <p>Don't have an account? <a href="Singup">Sign Up</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+@code {
+}

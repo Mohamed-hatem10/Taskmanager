@@ -1,0 +1,184 @@
+@page "/Dashbord"
+<PageTitle>Dashbord</PageTitle>
+@namespace Dashbord
+@using System.Collections.Generic
+@using Add_Habit
+@inject NavigationManager _navigator
+<style>
+    .task-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .task-section {
+        width: 30%;
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .task-section h3 {
+        text-align: center;
+    }
+
+    .add-task-section {
+        margin-top: 20px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .task {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px;
+        border-bottom: 1px solid #eee;
+    }
+
+   .task button {
+    margin-left: 5px;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+ .habit-tracker {
+      border: 1px solid #ccc;
+      padding: 20px;
+      width: 300px;
+    }
+    .habit-tracker ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .habit-tracker li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .habit-tracker input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    .habit-tracker button {
+      width: 20px;
+      height: 20px;
+      font-size: 12px;
+      padding: 0;
+    }
+
+
+
+</style>
+
+<div class="task-container">
+    <!-- All Tasks -->
+    <div class="task-section">
+        <h3>All Tasks</h3>
+        
+        @foreach (var task in Tasks)
+        {
+            <div class="task">
+                <span>@task</span>
+                <div>
+                    <button @onclick="() => MarkAsCompleted(task)">✔️</button>
+                    <button @onclick="() => DeleteTask(task)">❌</button>
+                    <button @onclick="() => PinTask(task)">📌</button>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Pinned Tasks -->
+    <div class="task-section">
+        <h3>Pinned Tasks</h3>
+        @foreach (var task in PinnedTasks)
+        {
+            <div class="task">
+                <span>@task</span>
+                <div>
+                    <button @onclick="() => DeleteTask(task)">❌</button>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Completed Tasks -->
+    <div class="task-section">
+        <h3>Completed Tasks</h3>
+        @foreach (var task in CompletedTasks)
+        {
+            <div class="task">
+                <span>@task</span>
+                <div>
+                    <button @onclick="() => DeleteTask(task)">❌</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+ 
+
+  
+
+<!-- Add Task Section -->
+<div class="add-task-section">
+    <h3>Add Task</h3>
+    <input type="text" @bind="NewTask" placeholder="Enter a new task" />
+    <button @onclick="AddTask">Add Task</button>
+</div>
+
+<Add_Habit></Add_Habit>
+@code {
+    private List<string> Tasks { get; set; } = new List<string>();
+    private List<string> PinnedTasks { get; set; } = new List<string>();
+    private List<string> CompletedTasks { get; set; } = new List<string>();
+    private string NewTask { get; set; } = string.Empty;
+     private List<string> Habits = new() { "Exercise", "Read", "Meditate" };
+
+
+    private void AddTask()
+    {
+        if (!string.IsNullOrWhiteSpace(NewTask))
+        {
+            Tasks.Add(NewTask);
+            NewTask = string.Empty;
+        }
+    }
+
+    private void MarkAsCompleted(string task)
+    {
+        if (Tasks.Remove(task))
+        {
+            CompletedTasks.Add(task);
+        }
+    }
+
+    private void DeleteTask(string task)
+    {
+        Tasks.Remove(task);
+        PinnedTasks.Remove(task);
+        CompletedTasks.Remove(task);
+    }
+
+    private void PinTask(string task)
+    {
+        if (Tasks.Remove(task))
+        {
+            PinnedTasks.Add(task);
+        }
+    }
+    public void NavigateToAddHabit()
+    {
+        _navigator.NavigateTo("/add-habit");
+    }
+    
+}

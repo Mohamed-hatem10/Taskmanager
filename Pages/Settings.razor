@@ -1,0 +1,131 @@
+@page "/settings"
+<PageTitle>Settings</PageTitle>
+
+<!-- Header Section -->
+<header style="background: linear-gradient(to right, #6a11cb, #2575fc); color: white;">
+ Settings
+</header>
+
+<div class="container">
+    
+    <div class="settings" >
+        <h3 class="information">User Information</h3>
+        <EditForm Model="@userInfoModel" OnValidSubmit="SaveUserInfo">
+            <InputText class="name" @bind-Value="userInfoModel.Username" placeholder="Enter username" />
+            <InputText class="pass" @bind-Value="userInfoModel.Password" type="password" placeholder="Set a password" />
+            <InputText class="phone" @bind-Value="userInfoModel.Phone" type="tel" placeholder="Phone Number" />
+            <InputText class="email" @bind-Value="userInfoModel.Email" type="email" placeholder="Email" />
+            <div style="margin: 10px;">
+                <InputFile OnChange="HandleFileChange" />
+            </div>
+            <button style="width: 80px; text-align: center;margin-left: 85%;" type="submit">Save</button>
+        </EditForm>
+    </div>
+    <hr>
+    
+    <div class="preference">
+        <h3>Notification Preferences</h3>
+        <label>
+            <input type="checkbox" @bind="notifyPhone" /> Phone Notifications
+        </label>
+        <br />
+        <label>
+            <input type="checkbox" @bind="notifyEmail" /> Email Notifications
+        </label>
+        <br />
+        <label>
+            <input type="checkbox" @bind="notifyWebsite" /> Website Notifications
+        </label>
+        <br />
+        <button @onclick="SaveNotifications" style="width: 80px; text-align: center;margin-left: 85%;">Save</button>
+    </div>
+    
+    <hr>
+    <div >
+        <label>
+            <input type="checkbox" checked="@IsDarkMode" @onchange="ActivateDarkMode" /> Activate Dark Mode
+        </label>
+    </div>
+    <hr>
+    <div>
+        <h3>Log Out</h3>
+        <p>Click below to log out.</p>
+        <a href="Login"> <button >Log Out</button></a>
+    </div>
+</div>
+
+<!-- C# Logic -->
+@using System
+@inject IJSRuntime JSRuntime
+
+@code {
+    private bool IsUserInfoVisible = true;
+    private bool IsNotificationsVisible = false;
+    private bool IsLogoutVisible = false;
+
+    private bool IsDarkMode { get; set; } = false;
+
+    private UserInfoModel userInfoModel = new();
+
+    private bool notifyPhone { get; set; } = false;
+    private bool notifyEmail { get; set; } = false;
+    private bool notifyWebsite { get; set; } = false;
+
+    private void SwitchView(string view)
+    {
+        IsUserInfoVisible = view == "userInfo";
+        IsNotificationsVisible = view == "notifications";
+        IsLogoutVisible = view == "logout";
+    }
+
+    private async Task SaveUserInfo()
+    {
+        await Task.Delay(100); // Simulate async work
+        Console.WriteLine($"User Info Saved: Username: {userInfoModel.Username}, Email: {userInfoModel.Email}, Password:{userInfoModel.Password}, phone:{userInfoModel.Phone}");
+        SwitchView("notifications");
+    }
+
+    private async Task SaveNotifications()
+    {
+        await Task.Delay(100); // Simulate async
+        Console.WriteLine($"Notification Preferences: Phone={notifyPhone}, Email={notifyEmail}, Website={notifyWebsite}");
+        SwitchView("logout");
+    }
+
+    private async Task Logout()
+    {
+        await Task.Delay(100); // Simulate async
+        Console.WriteLine("Logged out!");
+        SwitchView("userInfo");
+    }
+
+    private async Task ActivateDarkMode(ChangeEventArgs e)
+    {
+        IsDarkMode = (bool)e.Value;
+        Console.WriteLine($"Dark mode activated: {IsDarkMode}");
+
+        if (IsDarkMode)
+        {
+            // Add the dark-mode class to the body to activate dark mode
+            await JSRuntime.InvokeVoidAsync("document.body.classList.add", "dark-mode");
+        }
+        else
+        {
+            // Remove the dark-mode class to deactivate dark mode
+            await JSRuntime.InvokeVoidAsync("document.body.classList.remove", "dark-mode");
+        }
+    }
+
+    private void HandleFileChange(InputFileChangeEventArgs e)
+    {
+        Console.WriteLine($"File uploaded: {e.File.Name}");
+    }
+
+    public class UserInfoModel
+    {
+        public string Username { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public string Phone { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+    }
+}

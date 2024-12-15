@@ -1,0 +1,44 @@
+﻿@page "/singup"
+<PageTitle>SingUp</PageTitle>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-form">
+            <h1>Create an Account</h1>
+            <p>Please fill in the details to sign up</p>
+            <form action="Login.rezor" method="post">
+                <div class="form-group">
+                    <label for="first-name">First Name</label>
+                    <input type="text" id="first-name" name="first-name" placeholder="Enter your first name" required>
+                </div>
+                <div class="form-group">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" id="last-name" name="last-name" placeholder="Enter your last name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Gmail Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your Gmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Create a password" required>
+                </div>
+              <a href="Login"> <button type="submit" class="btn1" > Sign Up</button></a>
+            </form>
+            <div class="options">
+                <p>Already have an account? <a href="Login">Login</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+@code {
+
+}

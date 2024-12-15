@@ -1,0 +1,82 @@
+﻿@page "/about"
+@page "/team"
+@using TeamMembers 
+
+<h1>Team Overview</h1>
+
+<p>Our goal is to create a user-friendly, efficient, and easy-to-use platform to help individuals and teams manage their tasks more effectively.</p>
+<h1 style="margin-left: 0px;">The team behind this Website</h1>
+
+<div class="team-container">
+    @foreach (var member in TeamMembers)
+    {
+        <div class="team-member">
+            <h3>@member.Name</h3>
+            <p class="role">@member.Role</p>
+            <p class="biography">@member.Biography</p>
+            <p><strong>Key Contributions:</strong> @member.KeyContributions</p>
+            <p><strong>Quote:</strong> "@member.Quote"</p>
+            <p><strong>Contact Information:</strong> <a href="mailto:@member.ContactInfo">@member.ContactInfo</a> | <a href="@member.LinkedIn" target="_blank">LinkedIn</a></p>
+        </div>
+    }
+</div>
+
+@code {
+    private List<TeamMember> TeamMembers = new List<TeamMember>
+    {
+        new TeamMember
+        {
+            Name = "Mohammed Osman",
+            Role = "Lead Developer",
+            Biography = "Mohammed has over 8 years of experience in software development, specializing in backend engineering and task management systems. She is passionate about creating scalable and efficient solutions for task management.",
+            KeyContributions = "Mohammed developed the task prioritization algorithm, which enhances task handling and ensures that high-priority items are addressed first.",
+            Quote = "Technology is best when it brings people together.",
+            ContactInfo = "Mohammed@gemail.com",
+            LinkedIn = "https://www.linkedin.com/in/Mohammed"
+        },
+        new TeamMember
+        {
+            Name = "Mustafa  Al-Bahr",
+            Role = "Frontend Developer",
+            Biography = "Mustafa has been working in frontend development for over 5 years, focusing on creating responsive and intuitive user interfaces.",
+            KeyContributions = "Mustafa redesigned the UI of the task management dashboard to improve user engagement.",
+            Quote = "Good design is obvious. Great design is transparent.",
+            ContactInfo = "Mustafa@gemail.com",
+            LinkedIn = "https://www.linkedin.com/in/Mustafa"
+           
+        },
+        new TeamMember
+        {
+            Name = " Farah Hisham  Mohsen",
+            Role = "UX Designer",
+            Biography = "Farah is an expert in UX design with a strong background in creating seamless and engaging user experiences.",
+            KeyContributions = "Farah led the user research and design phases to create an intuitive task management interface.",
+            Quote = "Design is not just what it looks like, design is how it works.",
+            ContactInfo = "Farah@gemail.com",
+            LinkedIn = "https://www.linkedin.com/in/Farah"
+          
+        },
+        new TeamMember
+        {
+            Name = "Suhayla Abdel Nasser ",
+            Role = "Project Manager",
+            Biography = "Suhayla has over 6 years of experience in project management and leads teams to deliver projects on time and within budget.",
+            KeyContributions = "Suhayla managed the project timelines and coordinated with the entire team to ensure smooth project execution.",
+            Quote = "Success is the sum of small efforts, repeated day in and day out.",
+            ContactInfo = "Suhayla@gemail.com",
+            LinkedIn = "https://www.linkedin.com/in/Suhayla"
+        },
+        new TeamMember
+        {
+            Name = "Dhad Al-Surdi",
+            Role = "Quality Assurance Engineer",
+            Biography = "Dhad ensures the quality and reliability of software by conducting thorough testing and identifying bugs before release.",
+            KeyContributions = "Dhad developed automated test cases and reduced bugs in the production environment.",
+            Quote = "Quality is not an act, it is a habit.",
+            ContactInfo = "Dhad@gemail.com",
+            LinkedIn = "https://www.linkedin.com/in/Dhad"
+            
+        }
+    };
+}
+

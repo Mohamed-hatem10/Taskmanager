@@ -1,0 +1,54 @@
+﻿@page "/todos"
+   
+<PageTitle>ToDos</PageTitle>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        
+        <h1>Task Manager</h1>
+    </header>
+    <main>
+        <section class="User-Info">
+           
+
+        </section>
+        <section id="task-form">
+            <h2>Add New Task</h2>
+            <form id="new-task-form">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" rows="3" required></textarea>
+
+                <label for="deadline">Deadline:</label>
+                <input type="datetime-local" id="deadline" name="deadline" required>
+
+                <button type="submit" class="btn2">Add Task</button>
+            </form>
+        </section>
+
+        <section id="task-list">
+            <h2>My Tasks</h2>
+            <div id="filters">
+                <button id="filter-all" class="filter-btn active">All</button>
+                <button id="filter-pending" class="filter-btn">Pending</button>
+                <button id="filter-completed" class="filter-btn">Completed</button>
+                <button><a href="Dashbord"> Dashbord</a></button>
+            </div>
+            <ul id="tasks-container"></ul>
+        </section>
+    </main>
+</body>
+
+
+
+@code {
+
+   
+}
